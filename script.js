@@ -57,8 +57,6 @@ function renderPage() {
     todoHTML += `
     <div class="todo-task-box id=${index}">
       <div id="${index}" class="check-box ${todo.done ? "checked": ""}">
-       
-        <!-- <img src="image/tick.svg"> -->
       </div>
       <div id=${index} class="todo-task ${todo.done ? "done" : ""}">
         ${name}
