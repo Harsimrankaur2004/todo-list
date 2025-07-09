@@ -86,20 +86,7 @@ function renderPage() {
         todoList[index].done = checkBox.classList.contains("checked");
         saveToStorage();
       });
-    });
-
-    document.querySelectorAll(".todo-task")
-    .forEach((taskText, index) => {
-      taskText.addEventListener("click", () => {
-        taskText.classList.toggle("done");
-        const checkbox = taskText.previousElementSibling;
-
-        checkbox.classList.toggle("checked");
-
-        todoList[index].done = taskText.classList.contains("done");
-        saveToStorage();
-      });
-    });
+    });    
 
   // Add an event listener to delete button
   document.querySelectorAll(".dlt-btn")
