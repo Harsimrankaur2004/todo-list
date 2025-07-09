@@ -55,13 +55,13 @@ function renderPage() {
   todoList.forEach((todo, index) => {
     let { name } = todo;
     todoHTML += `
-    <div class="todo-task-box id=${index}">
-      <div id="${index}" class="check-box ${todo.done ? "checked": ""}">
+    <div class="todo-task-box">
+      <div class="check-box ${todo.done ? "checked": ""}">
       </div>
-      <div id=${index} class="todo-task ${todo.done ? "done" : ""}">
+      <div class="todo-task ${todo.done ? "done" : ""}">
         ${name}
       </div>
-      <button id=${index} class="dlt-btn">
+      <button class="dlt-btn">
         <img src="image/delete.svg" alt="">
       </button>
     </div>
@@ -95,9 +95,8 @@ function renderPage() {
         todoList.splice(index, 1);
         saveToStorage();
         renderPage();
-        
-      })
-    })
+      });
+    });
 }
 
 renderPage();
