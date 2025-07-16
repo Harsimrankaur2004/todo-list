@@ -1,102 +1,83 @@
 let todoList = JSON.parse(localStorage.getItem('todoList')) || [
-  {
-    name: "Buy groceries",
-    done: false
-  },
-  {
-    name: "Read book",
-    done: false
-  }
+  { name: "Buy groceries", done: false },
+  { name: "Read book", done: false }
 ];
 
+// Ensures fallback data is stored
 saveToStorage();
 
 let inputTask = document.getElementById("inputTask");
 
-// It saves everything in localStorage
+// Isolated storage logic for reusability
 function saveToStorage() {
   localStorage.setItem("todoList", JSON.stringify(todoList));
 }
 
-// Add an event listener to add-button
-document.querySelector(".add-btn")
-  .addEventListener("click", () => {
-    let name = inputTask.value.trim();
+// Shared task-add logic for click/enter
+function addTasks() {
+  let name = inputTask.value.trim();
+  if (name === "") return;
 
-    if(name === "") return;
+  todoList.push({ name, done: false });
+  saveToStorage();
+  renderPage();
+  inputTask.value = '';
+}
 
-    todoList.push({ name, done: false });
-    saveToStorage();
-    renderPage();
-    inputTask.value = '';
-  });
+// Handles Add button
+document.querySelector(".add-btn").addEventListener("click", () => {
+  addTasks();
+});
 
-// Add an event listener to inputTask
+// Handles Enter key press
 inputTask.addEventListener("keydown", event => {
   if (event.key === "Enter") {
-    let name = inputTask.value.trim();
-
-    if(name === "") return;
-
-    todoList.push({ name, done: false });
-    saveToStorage();
-    renderPage();
-    inputTask.value = '';
+    addTasks();
   }
 });
 
-// It will render the whole page
+// Main render function — refreshes UI fully
 function renderPage() {
-
-  // A variable that saves the html
   let todoHTML = "";
 
-  // It generates the HTML
+  // Generate task markup
   todoList.forEach((todo, index) => {
     let { name } = todo;
     todoHTML += `
-    <div class="todo-task-box">
-      <div class="check-box ${todo.done ? "checked": ""}">
+      <div class="todo-task-box">
+        <div class="check-box ${todo.done ? "checked" : ""}"></div>
+        <div class="todo-task ${todo.done ? "done" : ""}">
+          ${name}
+        </div>
+        <button class="dlt-btn">
+          <img src="image/delete.svg" alt="">
+        </button>
       </div>
-      <div class="todo-task ${todo.done ? "done" : ""}">
-        ${name}
-      </div>
-      <button class="dlt-btn">
-        <img src="image/delete.svg" alt="">
-      </button>
-    </div>
-  `;
+    `;
   });
 
-  document.querySelector(".todo-task-container")
-    .innerHTML = todoHTML;
+  // Inject all tasks at once
+  document.querySelector(".todo-task-container").innerHTML = todoHTML;
 
-  // console.log(todoHTML);
-
-
-  // This code checked and unchecked the tick-box
-  document.querySelectorAll(".check-box")
-    .forEach((checkBox, index) => {
-      checkBox.addEventListener("click", () => {
-        checkBox.classList.toggle("checked");
-        const taskText = checkBox.nextElementSibling;
-
-        taskText.classList.toggle("done");
-
-        todoList[index].done = checkBox.classList.contains("checked");
-        saveToStorage();
-      });
-    });    
-
-  // Add an event listener to delete button
-  document.querySelectorAll(".dlt-btn")
-    .forEach((dlt, index) => {
-      dlt.addEventListener("click", () => {
-        todoList.splice(index, 1);
-        saveToStorage();
-        renderPage();
-      });
+  // Toggle done state
+  document.querySelectorAll(".check-box").forEach((checkBox, index) => {
+    checkBox.addEventListener("click", () => {
+      checkBox.classList.toggle("checked");
+      checkBox.nextElementSibling.classList.toggle("done");
+      todoList[index].done = checkBox.classList.contains("checked");
+      saveToStorage();
     });
+  });
+
+  // Delete task on button click
+  document.querySelectorAll(".dlt-btn").forEach((dlt, index) => {
+    dlt.addEventListener("click", () => {
+      todoList.splice(index, 1);
+      saveToStorage();
+      renderPage();
+    });
+  });
 }
 
+// Initial render
 renderPage();
