@@ -38,45 +38,49 @@ inputTask.addEventListener("keydown", event => {
 
 // Main render function — refreshes UI fully
 function renderPage() {
-  let todoHTML = "";
-
+  const container =   document.querySelector(".todo-task-container");
+  container.innerHTML = "";
+  
   // Generate task markup
   todoList.forEach((todo, index) => {
-    let { name } = todo;
-    todoHTML += `
-      <div class="todo-task-box">
-        <div class="check-box ${todo.done ? "checked" : ""}"></div>
-        <div class="todo-task ${todo.done ? "done" : ""}">
-          ${name}
-        </div>
-        <button class="dlt-btn">
-          <img src="image/delete.svg" alt="">
-        </button>
-      </div>
-    `;
-  });
+    const box = document.createElement("div");
+    box.classList = "todo-task-box";
 
-  // Inject all tasks at once
-  document.querySelector(".todo-task-container").innerHTML = todoHTML;
+    const check = document.createElement("div");
+    check.classList = "check-box";
+    todo.done ? check.classList.add("checked") : "";
 
-  // Toggle done state
-  document.querySelectorAll(".check-box").forEach((checkBox, index) => {
-    checkBox.addEventListener("click", () => {
-      checkBox.classList.toggle("checked");
-      checkBox.nextElementSibling.classList.toggle("done");
-      todoList[index].done = checkBox.classList.contains("checked");
+    const task = document.createElement("div");
+    task.classList = "todo-task";
+    todo.done ? task.classList.add("done") : "";
+
+    task.textContent = todo.name;
+
+    const delBtn = document.createElement("button");
+    delBtn.classList = "dlt-btn";
+    delBtn.innerHTML =  `<img src="image/delete.svg" alt="">`;
+
+    // Toggle done state
+    check.addEventListener("click", () => {
+      check.classList.toggle("checked");
+      task.classList.toggle("done");
+      todoList[index].done = check.classList.contains("checked");
       saveToStorage();
     });
-  });
 
-  // Delete task on button click
-  document.querySelectorAll(".dlt-btn").forEach((dlt, index) => {
-    dlt.addEventListener("click", () => {
+    // Delete task on button click
+    delBtn.addEventListener("click", () => {
       todoList.splice(index, 1);
       saveToStorage();
       renderPage();
     });
+
+    box.appendChild(check);
+    box.appendChild(task);
+    box.appendChild(delBtn);
+    container.appendChild(box);
   });
+
 }
 
 // Initial render
