@@ -34,9 +34,9 @@ It helps users organize tasks efficiently by adding, marking as complete, and de
 
 2. Navigate to the folder
 
-  ```bash
-
-  cd todo-list
+    ```bash
+  
+    cd todo-list
 
 
 3. Open the project
@@ -60,5 +60,6 @@ It helps users organize tasks efficiently by adding, marking as complete, and de
 ## 📜 License
 
    This project is licensed under the MIT License — you’re free to use and modify it.
+
 
    [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
