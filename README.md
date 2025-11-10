@@ -29,7 +29,7 @@ It helps users organize tasks efficiently by adding, marking as complete, and de
 
     ```bash
 
-    git clone https://github.com/yourusername/todo-list.git
+    git clone https://github.com/Harsimrankaur2004/todo-list
 
 
 2. Navigate to the folder
@@ -63,5 +63,6 @@ It helps users organize tasks efficiently by adding, marking as complete, and de
 
 
    [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 
 
