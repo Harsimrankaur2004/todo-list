@@ -47,7 +47,7 @@ It helps users organize tasks efficiently by adding, marking as complete, and de
 👉 [Click here to open the website](https://todolist-app-mini-project.netlify.app/)
 
 ## 📸 Screenshot
- <img src="image/screenshot.png" alt="To Do List" width="400"/>
+ <img src="./image/screenshot.png" alt="To Do List" width="400"/>
 
 ## 🏗️ Future Improvements
 
@@ -63,4 +63,5 @@ It helps users organize tasks efficiently by adding, marking as complete, and de
 
 
    [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 
